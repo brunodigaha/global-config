@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: course
+  cloud:
+    config:
+      import: "optional:configserver:"
+  datasource:
+    url: ${JDBC_DATABASE_URL:jdbc:postgresql://localhost:5432/ead-bk}
+    username: ${JDBC_DATABASE_USERNAME:postgres}
+    password: ${JDBC_DATABASE_PASSWORD:banco123}
+  jpa:
+    hibernate:
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+      ddl-auto: update
+      jdbc:
+        lob.non-contextual-creation: true
+    properties:
+      hibernate:
+        show_sql: true
+  rabbitmq:
+    addresses: amqps://oqaevxaf:6KU7WK_x0k2Et0CwgwlOOdf95NAR4uPG@woodpecker.rmq.cloudamqp.com/oqaevxaf
+
+server:
+  port: 8082
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+ead:
+  broker:
+    exchange:
+      userEventExchange: ead.userevent
+    queue:
+      userEventQueue:
+        name: ead.userevent.ms.course
